@@ -13,7 +13,7 @@ User.init({
   id: {
     type: INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   username: {
     type: STRING,
@@ -21,16 +21,16 @@ User.init({
   },
   role: {
     type: STRING,
-    allowNull: false,        
+    allowNull: false,
   },
   email: {
     type: STRING,
-    allowNull: false,        
+    allowNull: false,
   },
   password: {
     type: STRING,
-    allowNull: false,        
-  },     
+    allowNull: false,
+  },
 }, {
   underscored: true,
   sequelize: db,
@@ -38,8 +38,10 @@ User.init({
   timestamps: false,
 });
 
+export default User;
+
 /**
-  * `Workaround` para aplicar as associations em TS: 
+  * `Workaround` para aplicar as associations em TS:
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
@@ -48,5 +50,3 @@ User.init({
 
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
-
-export default User;
