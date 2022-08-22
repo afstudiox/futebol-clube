@@ -7,7 +7,6 @@ const userController = new UserController(userService);
 
 const userRouter = Router();
 
-userRouter.get('/', (req, res) => userController.listAll(req, res));
 userRouter.post('/user', (req, res) => userController.findOne(req, res));
 
 export default userRouter;

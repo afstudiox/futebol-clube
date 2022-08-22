@@ -7,11 +7,6 @@ export default class UserController {
     private userService: IUserService,
   ) {}
 
-  async listAll(req: Request, res: Response): Promise<void> {
-    const users = await this.userService.listAll();
-    res.status(200).json(users);
-  }
-
   async findOne(req: Request, res: Response): Promise<void> {
     const { email } = req.body;
     const user = await this.userService.findUser(email);
