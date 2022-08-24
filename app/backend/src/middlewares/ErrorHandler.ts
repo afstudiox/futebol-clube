@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 
 const errors: { [errorName: string]:number } = {
-  ValidationError: 400,
-  NotFoundError: 404,
-  Unauthorized: 401,
+  validationError: 400,
+  notFoundError: 404,
+  unauthorized: 401,
 };
 
 const errorhandlerMiddleware = (
