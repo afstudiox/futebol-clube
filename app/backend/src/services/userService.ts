@@ -24,11 +24,11 @@ export class UserService implements IUserService {
 
   async login({ password, email }: ILogin): Promise<IToken> {
     const user: IUser | null = await this.findUser(email); // buscar o usuario pelo email
-    if (!user) throw new NewError('notFoundError', 'User Not Found'); // se não encontrar um usuário dá um erro
+    if (!user) throw new NewError('unauthorized', 'Incorrect email or password'); // se não encontrar um usuário dá um erro
     const authenticate:boolean = EncryptyService.compare(password, user.password); // Comparar com o password sem hash (body) com o password com hash (banco)
     if (!authenticate) {
       throw new
-      NewError('unauthorized', 'Email or password is not valid'); // se as senhas não baterem dá um erro
+      NewError('unauthorized', 'Incorrect email or password'); // se as senhas não baterem dá um erro
     }
     const token = JwtService.sign({ email }); // gerar o token com jwt
     return { token }; // retornar o token dentro de um objeto
