@@ -2,8 +2,11 @@ export interface Indexable {
   id: number;
 }
 
-export interface ILogin {
+export interface IEmail {
   email: string;
+}
+
+export interface ILogin extends IEmail {
   password: string;
 }
 
