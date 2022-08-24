@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 
 const errors: { [errorName: string]:number } = {
-  validationError: 400,
-  notFoundError: 404,
+  ValidationError: 400,
+  NotFoundError: 404,
+  Unauthorized: 401,
 };
 
 const errorhandlerMiddleware = (
@@ -13,8 +14,9 @@ const errorhandlerMiddleware = (
 ) => {
   const status = errors[err.name];
   // if (!status) return res.sendStatus(500);
-  console.log(err);
-
+  // console.log(err.name);
+  // console.log(err.message);
+  // console.log(err);
   res.status(status || 500).json({ message: err.message });
 };
 
