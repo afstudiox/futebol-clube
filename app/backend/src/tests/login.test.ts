@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-const token:string = `any-token`;
+const token:string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJpYXQiOjE2NjEzNjc0MjN9.6YWtLdxTJ6iuY8vy3y4FBi4ehOKk8-dEDzCK1RQmN1M';
 
 const findOneUserMock: ILogin = {
   email: 'user@user.com',
@@ -24,16 +24,20 @@ const findOneUserMock: ILogin = {
 }
 
 const userMock: IUser = {
-  id: 1,
-  username: 'any_name',
-  role: 'any-role',
-  email: 'any@email',
-  password: 'any_password'
+  id: 2,
+  username: 'User',
+  role: 'user',
+  email: 'user@user.com',
+  password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO'
 }
 
-describe('Login', () => {
+const roleMock = {
+  role: 'user',
+}
+
+describe('1 - Login', () => {
   beforeEach(()=>{
-    sinon.stub(JoiService, 'validadeBodyLogin').resolves(findOneUserMock)
+    sinon.stub(JoiService, 'validadeBodyLogin').resolves(findOneUserMock);
     sinon.stub(UserModel, 'findOne').resolves(userMock  as UserModel);
     sinon.stub(EncryptyService, 'compare').returns(true);
     sinon.stub(JwtService, 'sign').returns(token);
@@ -43,12 +47,14 @@ describe('Login', () => {
     sinon.restore();
   })
 
-  it('should return token if authenticated correctly and return status 200', async () => {
+  it('1.1 - Should return token if authenticated correctly and return status 200', async () => {
     const response = await chai.request(app)
       .post('/login')
       .send(findOneUserMock)
-    expect(response.status).to.equal(200);
-    expect(response.body).to.deep.equal({token});
-  });
-
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal({token});
+    });
+    
 });
+
+
