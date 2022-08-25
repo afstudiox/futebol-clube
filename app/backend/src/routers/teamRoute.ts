@@ -8,5 +8,6 @@ const teamController = new TeamController(teamService);
 const teamRouter = Router();
 
 teamRouter.get('/', (req, res) => teamController.findAll(req, res));
+teamRouter.get('/:id', (req, res) => teamController.findById(req, res));
 
 export default teamRouter;
