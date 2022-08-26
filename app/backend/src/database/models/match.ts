@@ -56,7 +56,7 @@ Match.belongsTo(
   Team,
   {
     foreignKey: 'home_team',
-    as: 'homeTeam',
+    as: 'teamHome',
   },
 );
 
@@ -64,7 +64,7 @@ Match.belongsTo(
   Team,
   {
     foreignKey: 'away_team',
-    as: 'awayTeam',
+    as: 'teamAway',
   },
 );
 
