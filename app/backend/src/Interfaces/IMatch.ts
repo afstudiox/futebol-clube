@@ -7,7 +7,7 @@ export interface IMatch extends Indexable {
   homeTeamGoals: number;
   awayTeam: number;
   awayTeamGoal: number;
-  inProgress: number;
+  inProgress: boolean;
   teamHome?: {
     teamName: string;
   }
