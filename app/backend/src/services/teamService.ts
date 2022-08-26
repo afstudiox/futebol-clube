@@ -1,5 +1,5 @@
 import { ITeam } from '../Interfaces/ITeam';
-import TeamModel from '../database/models/teams';
+import TeamModel from '../database/models/team';
 
 export interface ITeamService {
   findAll(): Promise<ITeam[]>

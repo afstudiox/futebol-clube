@@ -2,7 +2,7 @@ import * as sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
-import TeamModel from '../database/models/teams';
+import TeamModel from '../database/models/team';
 
 import { app } from '../app';
 
