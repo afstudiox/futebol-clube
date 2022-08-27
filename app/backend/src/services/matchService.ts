@@ -4,6 +4,7 @@ import { IMatch } from '../Interfaces/IMatch';
 
 export interface IMatchService {
   findAll(): Promise<IMatch[]>
+  findInProgress(status: boolean): Promise<IMatch[]>
 }
 
 export class MatchService implements IMatchService {
@@ -23,5 +24,21 @@ export class MatchService implements IMatchService {
       }],
     });
     return matches;
+  }
+
+  async findInProgress(inProgress: boolean): Promise<IMatch[]> {
+    const matchesInProgress: IMatch[] = await this.matchModel.findAll({
+      where: { inProgress },
+      include: [{
+        model: Team,
+        as: 'teamHome',
+        attributes: ['teamName'],
+      }, {
+        model: Team,
+        as: 'teamAway',
+        attributes: ['teamName'],
+      }],
+    });
+    return matchesInProgress;
   }
 }
