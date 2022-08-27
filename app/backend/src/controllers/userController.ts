@@ -10,12 +10,6 @@ export default class UserController {
     private userService: IUserService,
   ) {}
 
-  async findOne(req: Request, res: Response): Promise<void> {
-    const { email } = req.body;
-    const user = await this.userService.findUser(email);
-    res.status(200).json(user);
-  }
-
   async login(req: Request, res: Response): Promise<void> {
     const result = await JoiService.validadeBodyLogin(req.body); // fazer o validate body no controller
     const token = await this.userService.login(result); // realizar o login e retornar o token em casa de sucesso
@@ -27,8 +21,8 @@ export default class UserController {
   async authorization(req: Request, res: Response): Promise<void> {
     const token = req.headers.authorization;
     if (!token) throw new NewError('unauthorized', 'Token não encontrado');
-    const { email } = Jwtservice.verify(token) as IEmail;
-    const { role } = await this.userService.findUser(email) as IUser;
+    const { email } = Jwtservice.verify(token) as IEmail; // test ok
+    const { role } = await this.userService.findUser(email) as IUser; // test ok
     res.status(200).json({ role });
   }
 }

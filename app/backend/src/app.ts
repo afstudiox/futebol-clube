@@ -1,6 +1,5 @@
 import * as express from 'express';
 import 'express-async-errors';
-import userRoute from './routers/userRoute';
 import loginRoute from './routers/loginRoute';
 import errorhandlerMiddleware from './middlewares/ErrorHandler';
 import teamRoute from './routers/teamRoute';
@@ -28,7 +27,6 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
-    this.app.use('/users', userRoute);
     this.app.use('/login', loginRoute);
     this.app.use('/teams', teamRoute);
     this.app.use('/matches', matchRoute);

@@ -38,7 +38,7 @@ const roleMock = {
 describe('1 - Login', () => {
   beforeEach(()=>{
     sinon.stub(JoiService, 'validadeBodyLogin').resolves(findOneUserMock);
-    sinon.stub(UserModel, 'findOne').resolves(userMock  as UserModel);
+    sinon.stub(UserModel, 'findOne').resolves(userMock as UserModel);
     sinon.stub(EncryptyService, 'compare').returns(true);
     sinon.stub(JwtService, 'sign').returns(token);
   })
@@ -55,6 +55,33 @@ describe('1 - Login', () => {
       expect(response.body).to.deep.equal({token});
     });
     
+});
+
+describe('2 - Authorization', () => {
+  beforeEach(()=>{
+    sinon.stub(JwtService, 'verify').returns('user@useer.com');
+    sinon.stub(UserModel, 'findOne').resolves(userMock as UserModel);
+  })
+  
+  afterEach(()=>{
+    sinon.restore();
+  })
+
+  it('2.1 - Should when validate token return status 200 ', async () => {
+    const response = await chai.request(app)
+      .get('/login/validate')
+      .set('authorization', token)
+      .send(findOneUserMock)
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal({role: 'user'});
+    });
+  
+  it('2.2 = Should return 401 when token not found', async () => {
+    const response = await chai.request(app)
+    .get('/login/validate')
+    .set('authorization', '')
+    expect(response.status).to.equal(401);
+  })
 });
 
 
