@@ -9,5 +9,6 @@ const matchRouter = Router();
 
 matchRouter.get('/', (req, res) => matchController.findAll(req, res));
 matchRouter.get('/search', (req, res) => matchController.findInProgress(req, res));
+matchRouter.post('/', (req, res) => matchController.saveMatch(req, res));
 
 export default matchRouter;
