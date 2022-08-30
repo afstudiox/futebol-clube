@@ -8,11 +8,17 @@ export interface IMatchService {
   findInProgress(status: boolean): Promise<IMatch[]>
   saveMatch(newData: IBodyMatch): Promise<IMatch>
   finishMatch(id:string): Promise<IMessage>
+  findById(id:string): Promise<IMatch | null>
 }
 
 export class MatchService implements IMatchService {
   private matchModel;
   constructor() { this.matchModel = MatchModel; }
+
+  async findById(id:string): Promise<IMatch | null> {
+    const validateMatch = await this.matchModel.findByPk(id);
+    return validateMatch;
+  }
 
   async findAll(): Promise<IMatch[]> {
     const matches: IMatch[] = await this.matchModel.findAll({

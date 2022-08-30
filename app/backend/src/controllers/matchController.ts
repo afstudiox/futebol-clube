@@ -33,6 +33,13 @@ export default class matchController {
       NewError('unauthorized', 'It is not possible to create a match with two equal teams');
     }
 
+    const home = await this.matchService.findById(homeTeam);
+    const away = await this.matchService.findById(awayTeam);
+    if (!home || !away) {
+      throw new
+      NewError('notFoundError', 'There is no team with such id!');
+    }
+
     const newMatch = await this.matchService.saveMatch(req.body);
     res.status(201).json(newMatch);
   }
