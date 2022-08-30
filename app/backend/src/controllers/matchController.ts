@@ -23,10 +23,17 @@ export default class matchController {
   async saveMatch(req: Request, res: Response): Promise<void> {
     const token = req.headers.authorization;
     if (!token) throw new NewError('unauthorized', 'Token não encontrado');
+
     const validateToken = Jwtservice.verify(token);
     if (!validateToken) throw new NewError('unauthorized', 'Token inválido');
-    const newData = req.body;
-    const newMatch = await this.matchService.saveMatch(newData);
+
+    const { homeTeam, awayTeam } = req.body;
+    if (homeTeam === awayTeam) {
+      throw new
+      NewError('unauthorized', 'It is not possible to create a match with two equal teams');
+    }
+
+    const newMatch = await this.matchService.saveMatch(req.body);
     res.status(201).json(newMatch);
   }
 
