@@ -18,3 +18,7 @@ export interface IMatch extends Indexable, IBodyMatch {
     teamName: string;
   }
 }
+
+export interface IMessage {
+  message: string;
+}

@@ -1,6 +1,7 @@
 import Team from '../database/models/team';
 import MatchModel from '../database/models/match';
 import { IBodyMatch, IMatch } from '../Interfaces/IMatch';
+// import { IBodyMatch, IMatch, IMessage } from '../Interfaces/IMatch';
 
 export interface IMatchService {
   findAll(): Promise<IMatch[]>
@@ -47,4 +48,8 @@ export class MatchService implements IMatchService {
     const newMatch: IMatch = await this.matchModel.create({ ...newData, inProgress: true });
     return newMatch;
   }
+
+  // async finishMatch(id:string): Promise<IMessage> {
+  //   const fmessage: IMessage = await
+  // }
 }

@@ -27,6 +27,6 @@ export default class matchController {
     if (!validateToken) throw new NewError('unauthorized', 'Token inválido');
     const newData = req.body;
     const newMatch = await this.matchService.saveMatch(newData);
-    res.status(200).json(newMatch);
+    res.status(201).json(newMatch);
   }
 }
