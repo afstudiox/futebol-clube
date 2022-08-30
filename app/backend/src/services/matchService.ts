@@ -1,12 +1,13 @@
 import Team from '../database/models/team';
 import MatchModel from '../database/models/match';
-import { IBodyMatch, IMatch } from '../Interfaces/IMatch';
-// import { IBodyMatch, IMatch, IMessage } from '../Interfaces/IMatch';
+// import { IBodyMatch, IMatch } from '../Interfaces/IMatch';
+import { IBodyMatch, IMatch, IMessage } from '../Interfaces/IMatch';
 
 export interface IMatchService {
   findAll(): Promise<IMatch[]>
   findInProgress(status: boolean): Promise<IMatch[]>
   saveMatch(newData: IBodyMatch): Promise<IMatch>
+  finishMatch(id:string): Promise<IMessage>
 }
 
 export class MatchService implements IMatchService {
@@ -45,11 +46,21 @@ export class MatchService implements IMatchService {
   }
 
   async saveMatch(newData: IBodyMatch): Promise<IMatch> {
-    const newMatch: IMatch = await this.matchModel.create({ ...newData, inProgress: true });
+    const newMatch: IMatch = await this.matchModel.create(
+      { ...newData,
+        inProgress: true,
+      },
+    );
     return newMatch;
   }
 
-  // async finishMatch(id:string): Promise<IMessage> {
-  //   const fmessage: IMessage = await
-  // }
+  async finishMatch(id:string): Promise<IMessage> {
+    const retorno = await this.matchModel.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+    // o valor de retorno é um array da quantidade de linhas afetadas pelo update ( [0] = nenhuma || [1] = uma
+    console.log(retorno);
+    return { message: 'Finished' };
+  }
 }
