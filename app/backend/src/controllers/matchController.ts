@@ -24,20 +24,18 @@ export default class matchController {
     const token = req.headers.authorization;
     if (!token) throw new NewError('unauthorized', 'Token não encontrado');
 
-    const validateToken = Jwtservice.verify(token);
-    if (!validateToken) throw new NewError('unauthorized', 'Token inválido');
+    const validateCheck = Jwtservice.decode(token);
+    if (!validateCheck) throw new NewError('unauthorized', 'Token must be a valid token');
 
     const { homeTeam, awayTeam } = req.body;
     if (homeTeam === awayTeam) {
       throw new
       NewError('unauthorized', 'It is not possible to create a match with two equal teams');
     }
-
     const home = await this.matchService.findById(homeTeam);
     const away = await this.matchService.findById(awayTeam);
     if (!home || !away) {
-      throw new
-      NewError('notFoundError', 'There is no team with such id!');
+      throw new NewError('notFoundError', 'There is no team with such id!');
     }
 
     const newMatch = await this.matchService.saveMatch(req.body);

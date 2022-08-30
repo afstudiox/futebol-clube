@@ -61,12 +61,13 @@ export class MatchService implements IMatchService {
   }
 
   async finishMatch(id:string): Promise<IMessage> {
-    const retorno = await this.matchModel.update(
+    await this.matchModel.update(
+    // const retorno = await this.matchModel.update(
       { inProgress: false },
       { where: { id } },
     );
     // o valor de retorno é um array da quantidade de linhas afetadas pelo update ( [0] = nenhuma || [1] = uma
-    console.log(retorno);
+    // console.log(retorno);
     return { message: 'Finished' };
   }
 }
