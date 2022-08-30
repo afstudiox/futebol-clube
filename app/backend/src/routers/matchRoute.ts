@@ -11,5 +11,6 @@ matchRouter.get('/', (req, res) => matchController.findAll(req, res));
 matchRouter.get('/search', (req, res) => matchController.findInProgress(req, res));
 matchRouter.post('/', (req, res) => matchController.saveMatch(req, res));
 matchRouter.patch('/:id/finish', (req, res) => matchController.finishMatch(req, res));
+matchRouter.patch('/:id', (req, res) => matchController.changeGoals(req, res));
 
 export default matchRouter;

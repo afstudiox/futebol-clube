@@ -47,4 +47,11 @@ export default class matchController {
     const matchFinished = await this.matchService.finishMatch(id);
     res.status(200).json(matchFinished);
   }
+
+  async changeGoals(req: Request, res: Response): Promise<void> {
+    const newData = req.body;
+    const { id } = req.params;
+    await this.matchService.changeGoals(newData, id);
+    res.status(200).json('Match Update');
+  }
 }

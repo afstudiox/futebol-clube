@@ -1,7 +1,7 @@
 import Team from '../database/models/team';
 import MatchModel from '../database/models/match';
 // import { IBodyMatch, IMatch } from '../Interfaces/IMatch';
-import { IBodyMatch, IMatch, IMessage } from '../Interfaces/IMatch';
+import { IBodyGoals, IBodyMatch, IMatch, IMessage } from '../Interfaces/IMatch';
 
 export interface IMatchService {
   findAll(): Promise<IMatch[]>
@@ -9,11 +9,21 @@ export interface IMatchService {
   saveMatch(newData: IBodyMatch): Promise<IMatch>
   finishMatch(id:string): Promise<IMessage>
   findById(id:string): Promise<IMatch | null>
+  changeGoals(newData: IBodyGoals, id:string): Promise<IMessage>
 }
 
 export class MatchService implements IMatchService {
   private matchModel;
   constructor() { this.matchModel = MatchModel; }
+
+  async changeGoals(newData: IBodyGoals, id:string): Promise<IMessage> {
+    const { homeTeamGoals, awayTeamGoals } = newData;
+    await this.matchModel.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
+    );
+    return { message: 'Updated' };
+  }
 
   async findById(id:string): Promise<IMatch | null> {
     const validateMatch = await this.matchModel.findByPk(id);

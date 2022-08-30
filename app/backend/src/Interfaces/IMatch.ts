@@ -2,11 +2,14 @@ export interface Indexable {
   id: number;
 }
 
-export interface IBodyMatch {
-  homeTeam: number;
+export interface IBodyGoals {
   homeTeamGoals: number;
+  awayTeamGoals: number;
+}
+
+export interface IBodyMatch extends IBodyGoals{
+  homeTeam: number;
   awayTeam: number;
-  awayTeamGoal: number;
 }
 
 export interface IMatch extends Indexable, IBodyMatch {
