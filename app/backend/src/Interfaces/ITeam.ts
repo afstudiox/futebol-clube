@@ -3,5 +3,5 @@ export interface Indexable {
 }
 
 export interface ITeam extends Indexable {
-  teamName: string;
+  teamName?: string;
 }

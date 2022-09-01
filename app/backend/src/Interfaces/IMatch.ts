@@ -12,8 +12,11 @@ export interface IBodyMatch extends IBodyGoals{
   awayTeam: number;
 }
 
-export interface IMatch extends Indexable, IBodyMatch {
+export interface IProgress {
   inProgress: boolean;
+}
+
+export interface IMatch extends Indexable, IBodyMatch, IProgress {
   teamHome?: {
     teamName: string;
   }

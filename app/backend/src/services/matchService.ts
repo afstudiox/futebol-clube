@@ -72,7 +72,7 @@ export class MatchService implements IMatchService {
 
   async finishMatch(id:string): Promise<IMessage> {
     await this.matchModel.update(
-    // const retorno = await this.matchModel.update(
+      // const retorno = await this.matchModel.update(
       { inProgress: false },
       { where: { id } },
     );
